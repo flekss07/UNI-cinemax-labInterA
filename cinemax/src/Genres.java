@@ -1,4 +1,4 @@
-public enum Tag {
+public enum Genres {
 	Animazione,
 	Avventura,
 	Biografico,
