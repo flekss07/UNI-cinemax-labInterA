@@ -27,8 +27,8 @@ public class Film {
     public int getDurata() {
         return durata;
     }
-    public int getEtàMin() {
-        return etàMin;
+
+    public int getEtaMin() {
+        return etaMin;
     }
 }
-
