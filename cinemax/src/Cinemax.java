@@ -1,2 +1,2 @@
-public class Cinemax {
+public class Film {
 }
