@@ -1,14 +1,14 @@
 import java.util.Date;
 
 public class Film {
-    private Tag[] Generi;
+    private Genres[] Generi;
     private String Titolo;
     private String Regista;
     private Date Data;
     private int durata;
     private int etaMin;
 
-    public Tag[] getGeneri() {
+    public Genres[] getGeneri() {
         return Generi;
     }
 
