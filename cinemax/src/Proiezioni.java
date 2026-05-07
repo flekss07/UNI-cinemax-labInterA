@@ -1,34 +1,47 @@
 import java.util.Date;
 
 public class Proiezioni {
-    private Tag[] Generi;
-    private String Titolo;
-    private String Regista;
-    private Date Data;
+    private String genere;
+    private String titolo;
+    private String regista;
+    private Date data;
     private int durata;
     private int etaMin;
 
-    public Tag[] getGeneri() {
-        return Generi;
+    public Proiezioni(String genere, String titolo, String regista,Date data,int durata,int etaMin){
+        this.genere = genere;
+        this.titolo = titolo;
+        this.regista = regista;
+        this.data = data;
+        this.durata = durata;
+        this.etaMin = etaMin;
     }
 
-    public String getTitolo() {
-        return Titolo;
-    }
+    // getter
 
-    public String getRegista() {
-        return Regista;
-    }
+    public String getGeneri() { return this.genere; }
 
-    public Date getData() {
-        return Data;
-    }
+    public String getTitolo() { return this.titolo; }
 
-    public int getDurata() {
-        return durata;
-    }
+    public String getRegista() { return this.regista; }
 
-    public int getEtaMin() {
-        return etaMin;
-    }
+    public Date getData() { return this.data; }
+
+    public int getDurata() { return this.durata; }
+
+    public int getEtaMin() { return this.etaMin; }
+
+    // setter
+
+    public void setGeneri(String genere){ this.genere = genere; }
+
+    public void setTitolo(String titolo){ this.titolo = titolo; }
+
+    public void setRegista(String regista){ this.regista = regista; }
+
+    public void setData(Date data){ this.data = data; }
+
+    public void setDurata(int durata){ this.durata = durata; }
+
+    public void setEtaMin(int etaMin){ this.etaMin = etaMin; }
 }
