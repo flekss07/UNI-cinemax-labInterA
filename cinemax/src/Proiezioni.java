@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Film {
+public class Proiezioni {
     private Tag[] Generi;
     private String Titolo;
     private String Regista;

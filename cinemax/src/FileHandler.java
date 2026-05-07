@@ -1,8 +1,6 @@
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FileHandler {
     private String path;
@@ -11,7 +9,8 @@ public class FileHandler {
 
     public FileHandler(String path) {
         this.path = path; // assegna path per file
-        this.loadData();
+        this.cachedData = new ArrayList<>(); // inizializza la lista dati della cache
+        this.loadData(); // carica i dati
     }
 
     // metodo usato per creare un istanza di fileHandler utilizzabile da altre classi senza perdere dati cache
@@ -22,17 +21,21 @@ public class FileHandler {
     }
 
     // metodo che fa il load dei dati da file .csv
-    private void loadData() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(this.path)); // crea oggetto br per leggere dal file
-        String dataLine; // stringa dove caricare la linea corrente da csv
-        while ((dataLine = br.readLine()) != null) { // legge il file linea per linea
-            String[] dataArray = dataLine.split(","); // divide la stringa nell'array splittando alla ,
-            this.cachedData.add(dataArray); // aggiunge l'array di dati nella linkedlist della cache
+    private void loadData(){
+        InputStream is = getClass().getClassLoader().getResourceAsStream(this.path);
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(is))){// crea oggetto br per leggere dal file
+            String dataLine; // stringa dove caricare la linea corrente da csv
+            while ((dataLine = br.readLine()) != null) { // legge il file linea per linea
+                String[] dataArray = dataLine.split(","); // divide la stringa nell'array splittando alla ,
+                this.cachedData.add(dataArray); // aggiunge l'array di dati nella linkedlist della cache
+            }
+        }catch(IOException e){ // gestisce esception
+            System.out.println("erroe nel caricamento del file dati: " + e.getMessage()); // stampa errore relativo al file
         }
     }
 
     public void printData(){
-        for(String[] dataString: this.cachedData)
-            System.out.println(dataString);
+        for(String[] dataString: this.cachedData) // itera gli array in cache
+            System.out.println(Arrays.toString(dataString)); // stampa l'array in formato stringa
     }
 }
