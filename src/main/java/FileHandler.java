@@ -50,6 +50,24 @@ public class FileHandler {
         return projectionDate;
     }
 
-    //metodo di testing per stampare tutte le
+    //metodo di testing per stampare tutte le proiezioni in store
+    public String printProj(Proiezioni p) {
+        return "Proiezioni{" +
+                "titolo='" + p.getTitolo() + '\'' +
+                ", genere='" + p.getGeneri() + '\'' +
+                ", regista='" + p.getRegista() + '\'' +
+                ", data=" + p.getData() +
+                ", anno=" + p.getAnno() +
+                ", durata=" + p.getDurata() +
+                ", etaMin=" + p.getEtaMin() +
+                ", prezzo=" + p.getPrezzo() +
+                '}';
+    }
 
+    public void printProiezioni() {
+
+        for (Proiezioni p : proList) {
+            System.out.println(this.printProj(p));
+        }
+    }
 }
