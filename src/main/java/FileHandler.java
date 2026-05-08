@@ -4,18 +4,22 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class FileHandler {
     private DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
     private LinkedList<Proiezioni> proList; // linkedlist
+    private LinkedList<User> userList;
     private String proCsvPath;// percorso file csv proiezioni
     private String userCsvPath; // percorso file csv user
     public FileHandler() {
-        this.proList = new LinkedList<>(); // inizializza linked list
+        this.proList = new LinkedList<>(); // inizializza linkedlist proiezioni
+        this.userList = new LinkedList<>(); // inizializza linkedlist user
     }
 
     // metodo per caricare i dati delle proiezioni da csv
@@ -110,5 +114,31 @@ public class FileHandler {
         );
     }
 
+    // metodo che prende i dati dal csv degli utenti e li inserisce nella linkedlist dedicata
+    public void LoadUserData(String path) throws IOException {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(path); // caricac il csv dalla cartella resources
+        if (is == null) // guard clause, se il file non viene trovato lancia una exception
+            throw new IOException("file non trovato con il percorso: " + path); // indica che il file non è stato trovato
+        BufferedReader br = new BufferedReader(new InputStreamReader(is)); // crea un reader per il file csv che usa inputstream per processare il testo
+        CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(br); // crea un parser dedicato per il csv che usa gli header come nomi delle colonne
+        for (CSVRecord record : parser) // itera ogni elemento letto dal csvparser per estrarne i dati
+            this.createUserObj(record); //crea oggetto proiezione e lo aggiunge alla linkedlist dedicata
+    }
 
+    // metodo che crea un oggetto della classe user usando i dati passati dal csv
+    private void createUserObj(CSVRecord record){
+        String nome = record.get("nome");
+        String cognome = record.get("cognome");
+        String password = record.get("password");
+        String username = record.get("username");
+        LocalDate dataDiNascita =  LocalDate.parse(record.get("data_di_nascita")); // converte la data di nascita in formato date
+        String indirizzo = record.get("indirizzo");
+        User u = new User(nome,cognome,password,username,dataDiNascita,indirizzo); // crea nuovo oggetto user con i dati
+        this.userList.add(u); // aggiunge user alla linkedlist dedicata
+    }
+
+    //metodo per scrivere sul csv degli user
+    public void WriteToUserCsv(String path){
+
+    }
 }
