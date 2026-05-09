@@ -7,14 +7,15 @@ public class User {
     private String username;
     private LocalDate dataDiNascita;
     private String indirizzo;
-
-    public User(String nome, String cognome, String password, String username,LocalDate dataDiNascita,String indirizzo){
+    private Roles ruolo;
+    public User(String nome, String cognome, String password, String username,LocalDate dataDiNascita,String indirizzo, Roles ruolo){
         this.nome = nome;
         this.cognome = cognome;
         this.password = password;
         this.username = username;
         this.dataDiNascita = dataDiNascita;
         this.indirizzo = indirizzo;
+        this.ruolo = ruolo;
     }
 
     // getter
