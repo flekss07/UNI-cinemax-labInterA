@@ -3,11 +3,15 @@ import java.util.LinkedList;
 public class UserHandler {
     private LinkedList<User> userList;
 
-    /*Funzione x registrare l'utente*/
+    public UserHandler(LinkedList<User> userList){
+        this.userList=userList;
+    }
+
+    /*Metodo x registrare l'utente*/
     public void addUser(){
 
     }
-    /* funzione per controllare se l'utente esiste già*/
+    /* Metodo per controllare se l'utente esiste già*/
     public void logUser(){
 
     }
