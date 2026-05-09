@@ -18,7 +18,7 @@ public  class AESencrypt {
         Chiave.init(256);
         //Chiave segreta
         SecretKey chiaveSegreta = Chiave.generateKey();
-        //AES Cipher istance
+        //AES Cipher instance
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, chiaveSegreta);
         //Inizio encryption
