@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class UserHandler {
     private LinkedList<User> userList = new LinkedList<>();
