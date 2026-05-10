@@ -5,9 +5,10 @@ public class UserHandler {
     private LinkedList<User> userList = new LinkedList<>();
 
     /*Funzione x registrare l'utente*/
-    public void addUser() {
+    public void addUser() throws Exception{ 
         Scanner s= new Scanner(System.in);
         User newUser = new User();
+        boolean x=true;
 
         //da inserire gestione errore nel caso si eviti di inserire il campo
         System.out.println("Inserire Nome"); 
@@ -31,10 +32,28 @@ public class UserHandler {
 
         //inserimento del ruolo (permettere all'utente di darsi un ruolo?)
 
+
+        
         //inserimento della password 
+        while (x=true) {
+
         // da inserire un secondo inserimento della password per evitare errori di digitazione
         System.out.println("inserire una password");
         String password = s.nextLine();
+
+        System.out.println("inserire nuovamente la password");
+        String passcmp = s.nextLine();
+
+        if(password==passcmp){}
+            //encrypting della password
+            AESencrypt crypted = new AESencrypt();
+            newUser.setPassword(crypted.encrypt(password));
+
+            x=false;
+        }
+    }
+        
+
         
 
 }

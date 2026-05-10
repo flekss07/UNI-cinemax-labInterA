@@ -1,6 +1,7 @@
+import java.util.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 
 public class AESencrypt {
     private static final String FIXED_KEY = "cinemax2026key!"; // 16 caratteri per AES-128
