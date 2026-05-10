@@ -3,43 +3,43 @@ import java.util.Scanner;
 
 public class ProiezioniHandler {
     private LinkedList<User> proiezioniList;
-    
-    public ProiezioniHandler (LinkedList proiezioniList){
-        this.proiezioniList=proiezioniList;
+
+    public ProiezioniHandler(LinkedList proiezioniList) {
+        this.proiezioniList = proiezioniList;
     }
 
-    public static void addProiezione(){
-        Proiezioni NuovaProiezione= new Proiezioni();
+    public static void addProiezione() {
+        Proiezioni NuovaProiezione = new Proiezioni();
         Scanner sc = new Scanner(System.in);
-        boolean p=true;
+        boolean p = true;
         //Aggiunta titolo a nuova proiezione
-        while (p){
+        while (p) {
 
             System.out.println("Inserire il Titolo");
-            String titolo= sc.nextLine();
-            if(!titolo.trim().isEmpty()){
+            String titolo = sc.nextLine();
+            if (!titolo.trim().isEmpty()) {
                 System.out.println("Si prega di inserire un titolo valido");
-            }else {
-            NuovaProiezione.setTitolo(titolo);
-            p=false;
+            } else {
+                NuovaProiezione.setTitolo(titolo);
+                p = false;
             }
         }
-        p=true;
-        
+        p = true;
+
         //Inserimento genere
 
-            System.out.println("Inserire il genere inserendo il numerino assegnato");
-            String genere = sc.nextLine();
+        System.out.println("Inserire il genere inserendo il numerino assegnato");
+        String genere = sc.nextLine();
             /*if(!genere.trim().isEmpty()){
 
             }*/
-            // da aggiungere dopo aver fatto l'enum
+        // da aggiungere dopo aver fatto l'enum
 
 
-        p=true;
+        p = true;
 
         //Inserimento regista
-        while(p) {
+        while (p) {
             //controllare come viene memorizzato all'interno del file
             System.out.println("Inserire il regista");
             String regista = sc.nextLine();
@@ -55,10 +55,10 @@ public class ProiezioniHandler {
         //Inserimento data
         //da fare
 
-        p=true;
+        p = true;
 
         //Inserimento durata
-        while(p) {
+        while (p) {
             System.out.println("Inserire la durata della proiezione (in minuti)");
             String durata = sc.nextLine();
 
@@ -78,54 +78,81 @@ public class ProiezioniHandler {
                 }
             }
         }
-        p=true;
+        p = true;
 
         //Inserimento etàMinima
-        while(p){
+        while (p) {
             System.out.println("Inserire l'età minima");
             String etaMin = sc.nextLine();
-            if(!etaMin.trim().isEmpty()){
+            if (!etaMin.trim().isEmpty()) {
                 System.out.println("Inserire un'ètà minima valida");
-            } else{
-                try{
+            } else {
+                try {
                     int etaMinInt = Integer.parseInt(etaMin);
-                    if(etaMinInt>=0) {
-                        if(etaMinInt>=18){
+                    if (etaMinInt >= 0) {
+                        if (etaMinInt >= 18) {
                             System.out.println("L'eta inserita supera la maggiore eta, il limite sarà impostato a 18");
                             etaMinInt = 18;
                         } else {
                             NuovaProiezione.setEtaMin(etaMinInt);
                             p = false;
                         }
-                    } else{
+                    } else {
                         System.out.println("L'eta inserita non può essere negativa");
                     }
 
 
-
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println("Quello che hai inserito non è un numero. Riprova");
                 }
+            }
         }
-        }
-        p=true;
+        p = true;
 
         //inserimento anno d'uscita
-        while(p){
+        while (p) {
             System.out.println("Inserire l'anno di pubblicazione del film");
-            int anno=sc.nextInt();
-            NuovaProiezione.setAnno(anno);
-            p=false;
+            String anno = sc.nextLine();
+            if (!anno.trim().isEmpty()) {
+                System.out.println("Inserire un anno valido");
+            } else {
+                try {
+                    int annoInt = Integer.parseInt(anno);
+                    if (annoInt > 2026) {
+                        System.out.println("L'anno inserito non può essere superiore all'anno corrente");
+                    } else if (annoInt < 1888) {
+                        System.out.println("L'anno inserito non può essere inferiore al 1888, anno di uscita del primo film");
+                    } else {
+                        NuovaProiezione.setAnno(annoInt);
+                        p = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Quello che hai inserito non è un numero. Riprova");
+                }
+            }
         }
-        p=true;
+        p = true;
 
         //inserimento del prezzo
-        while(p){
+        while (p) {
             System.out.println("Inserire il prezzo del film");
-            float prezzo=sc.nextFloat();
-            NuovaProiezione.setPrezzo(prezzo);
-            p=false;
+            String prezzo = sc.nextLine();
+            if (!prezzo.trim().isEmpty()) {
+                System.out.println("Inserire un prezzo valido");
+            } else {
+                try {
+                    float prezzoFloat = Float.parseFloat(prezzo);
+                    if (prezzoFloat < 0) {
+                        System.out.println("Il prezzo inserito non può essere negativo");
+                    } else {
+                        NuovaProiezione.setPrezzo(prezzoFloat);
+                        p = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Quello che hai inserito non è un numero. Riprova");
+                }
+            }
+
         }
-    
     }
 }
