@@ -3,58 +3,27 @@ import java.util.Scanner;
 
 public class UserHandler {
     private final LinkedList<User> userList = new LinkedList<>();
-
+    boolean x = true;
     /*Funzione x registrare l'utente*/
     public void addUser() throws Exception{
         Scanner s= new Scanner(System.in);
         User newUser = new User();
-        boolean x=true; //variabile di controllo sui cicli while
-
         //ruolo
         System.out.println("scegliere il ruolo");
-
-        //da inserire gestione errore nel caso si eviti di inserire il campo
+        //Inserimento nome
         System.out.println("Inserire Nome");
         newUser.setNome(this.stringCheck());
-
-        x= true;
-        while(x) {
-            System.out.println("Inserire Cognome");
-            String cognome = s.nextLine();
-            if(!cognome.isEmpty() &&!cognome.trim().isEmpty()) {
-                System.out.println("Si prega di inserire un cognome valido");
-            } else{
-                newUser.setCognome(cognome);
-                x= false;
-            }
-        }
-        x = true;
-        while(x) {
-            System.out.println("Inserire Username");
-            String username = s.nextLine();
-            if(!username.isEmpty() &&!username.trim().isEmpty()) {
-                System.out.println("Si prega di inserire un username valido");
-            } else{
-            newUser.setUsername(username);
-            x= false;
-            }
-        }
-        x = true;
-        while(x) {
-            System.out.println("Inserire indirizzo di residenza");
-            String indirizzo = s.nextLine();
-            if(!indirizzo.isEmpty() &&!indirizzo.trim().isEmpty()) {
-                System.out.println("Si prega di inserire un indirizzo valido");
-            }else{
-                    newUser.setIndirizzo(indirizzo);
-            x= false;}
-
-
-        }
+       //inserimento cognome
+        System.out.println("Inserire Cognome");
+        newUser.setCognome(this.stringCheck());
+        //inserimento username
+        System.out.println("Inserire Username");
+        newUser.setUsername(this.stringCheck());
+        System.out.println("Inserire indirizzo di residenza");
+        newUser.setIndirizzo(this.stringCheck());
         //da inserire gestione della data
         System.out.println("inserire la data con formato gioni/mesi/anni");
-           
-        //inserimento della password 
+        //inserimento della password
         while (x) {
             System.out.println("inserire una password");
             String password = s.nextLine();
@@ -71,10 +40,9 @@ public class UserHandler {
             newUser.setPassword(AESencrypt.encrypt(password));
             x=false;
         }
-    }  
-    s.close();
+    }
+    }
 
-}
 
     //sotto metodo che fa il check della stringa
     private String stringCheck(){
