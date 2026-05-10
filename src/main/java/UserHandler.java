@@ -5,10 +5,13 @@ public class UserHandler {
     private final LinkedList<User> userList = new LinkedList<>();
 
     /*Funzione x registrare l'utente*/
-    public void addUser() throws Exception{ 
+    public void addUser() throws Exception{
         Scanner s= new Scanner(System.in);
         User newUser = new User();
         boolean x=true; //variabile di controllo sui cicli while
+
+        //ruolo
+        System.out.println("scegliere il ruolo");
 
         //da inserire gestione errore nel caso si eviti di inserire il campo
         while(x) {
@@ -57,11 +60,7 @@ public class UserHandler {
         }
         //da inserire gestione della data
         System.out.println("inserire la data con formato gioni/mesi/anni");
-
-        //inserimento del ruolo (permettere all'utente di darsi un ruolo?)
-
-
-        
+           
         //inserimento della password 
         while (x) {
             System.out.println("inserire una password");
@@ -77,13 +76,10 @@ public class UserHandler {
             //encrypting della password
             AESencrypt crypted = new AESencrypt();
             newUser.setPassword(AESencrypt.encrypt(password));
-
             x=false;
         }
-    }
-        
-
-        
+    }  
+    s.close();
 
 }
     /* funzione per controllare se l'utente esiste già*/
