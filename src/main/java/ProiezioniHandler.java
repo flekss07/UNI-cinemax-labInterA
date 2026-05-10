@@ -17,28 +17,41 @@ public class ProiezioniHandler {
 
             System.out.println("Inserire il Titolo");
             String titolo= sc.nextLine();
+            if(!titolo.trim().isEmpty()){
+                System.out.println("Si prega di inserire un titolo valido");
+            }else {
             NuovaProiezione.setTitolo(titolo);
             p=false;
+            }
         }
         p=true;
         
         //Inserimento genere
         while(p){
-            System.out.println("Inserire il genere");
+            System.out.println("Inserire il genere inserendo il numerino assegnato");
+            String genere = sc.nextLine();
+            /*if(!genere.trim().isEmpty()){
+
+            }*/
             // da aggiungere dopo aver fatto l'enum
 
         }
         p=true;
 
         //Inserimento regista
-        while(p){
+        while(p) {
             //controllare come viene memorizzato all'interno del file
             System.out.println("Inserire il regista");
-            String regista=sc.nextLine();
-            NuovaProiezione.setRegista(regista);
-            p=false;
+            String regista = sc.nextLine();
+            if (!regista.trim().isEmpty()) {
+                System.out.println("Si prega di inserire un regista valido");
+            } else {
+                NuovaProiezione.setRegista(regista);
+                p = false;
+            }
         }
-        
+
+
         //Inserimento data
         //da fare
 
