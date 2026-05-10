@@ -76,7 +76,7 @@ public class UserHandler {
         }
         return null;
     }
-//Esiste username e passa  al controllo password
+//Esiste username e passa al controllo password
     public void loginUser() throws Exception {
         System.out.println("Insere l'username:");
         String username = this.stringCheck();
