@@ -27,7 +27,7 @@ public class ProiezioniHandler {
         p=true;
         
         //Inserimento genere
-        while(p){
+
             System.out.println("Inserire il genere inserendo il numerino assegnato");
             String genere = sc.nextLine();
             /*if(!genere.trim().isEmpty()){
@@ -35,7 +35,7 @@ public class ProiezioniHandler {
             }*/
             // da aggiungere dopo aver fatto l'enum
 
-        }
+
         p=true;
 
         //Inserimento regista
@@ -58,21 +58,55 @@ public class ProiezioniHandler {
         p=true;
 
         //Inserimento durata
-        while(p){
-            //controllare come  viene memorizzata all'interno del file (possibilmente in minuti)
-            System.out.println("Inserire la durata della proiezione");
-            int durata=sc.nextInt();
-            NuovaProiezione.setDurata(durata);
-            p=false;
+        while(p) {
+            System.out.println("Inserire la durata della proiezione (in minuti)");
+            String durata = sc.nextLine();
+
+            if (!durata.trim().isEmpty()) {
+                System.out.println("Inserire un dato");
+            } else {
+                try {
+                    int durataInt = Integer.parseInt(durata);
+                    if (durataInt <= 0) {
+                        System.out.println("La durata inserita non può essere negativa");
+                    } else {
+                        NuovaProiezione.setDurata(durataInt);
+                        p = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Quello che hai inserito non è un numero. Riprova");
+                }
+            }
         }
         p=true;
 
         //Inserimento etàMinima
         while(p){
             System.out.println("Inserire l'età minima");
-            int etaMin=sc.nextInt();
-            NuovaProiezione.setEtaMin(etaMin);
-            p=false;
+            String etaMin = sc.nextLine();
+            if(!etaMin.trim().isEmpty()){
+                System.out.println("Inserire un'ètà minima valida");
+            } else{
+                try{
+                    int etaMinInt = Integer.parseInt(etaMin);
+                    if(etaMinInt>=0) {
+                        if(etaMinInt>=18){
+                            System.out.println("L'eta inserita supera la maggiore eta, il limite sarà impostato a 18");
+                            etaMinInt = 18;
+                        } else {
+                            NuovaProiezione.setEtaMin(etaMinInt);
+                            p = false;
+                        }
+                    } else{
+                        System.out.println("L'eta inserita non può essere negativa");
+                    }
+
+
+
+                }catch(NumberFormatException e){
+                    System.out.println("Quello che hai inserito non è un numero. Riprova");
+                }
+        }
         }
         p=true;
 
