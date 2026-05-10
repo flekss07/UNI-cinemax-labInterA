@@ -30,6 +30,11 @@ public class UserHandler {
         System.out.println("inserire la data con formato gioni/mesi/anni");
 
         //inserimento del ruolo (permettere all'utente di darsi un ruolo?)
+
+        //inserimento della password 
+        // da inserire un secondo inserimento della password per evitare errori di digitazione
+        System.out.println("inserire una password");
+        String password = s.nextLine();
         
 
 }
