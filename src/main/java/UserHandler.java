@@ -6,26 +6,29 @@ public class UserHandler {
     /*Funzione x registrare l'utente*/
     public void addUser() throws Exception{
         Scanner s= new Scanner(System.in);
-        User newUser = new User();
         //ruolo
         System.out.println("scegliere il ruolo");
         //Inserimento nome
         System.out.println("Inserire Nome");
-        newUser.setNome(this.stringCheck());
-       //inserimento cognome
+        String nome = this.stringCheck();
+        //inserimento cognome
         System.out.println("Inserire Cognome");
-        newUser.setCognome(this.stringCheck());
+        String cognome = this.stringCheck();
         //inserimento username
         System.out.println("Inserire Username");
-        newUser.setUsername(this.stringCheck());
+        String username = this.stringCheck();
         System.out.println("Inserire indirizzo di residenza");
-        newUser.setIndirizzo(this.stringCheck());
+        String residenza = this.stringCheck();
         //da inserire gestione della data
-        System.out.println("inserire la data con formato gioni/mesi/anni");
+        System.out.println("inserire la data di nascita con formato gioni/mesi/anni");
+        String bDate = this.stringCheck();
+        System.out.println("inserire ruolo: ");
+        String ruolo = this.stringCheck();
         //inserimento della password
-        System.out.println("inserire una password");
         String password = this.passencryption();
-        this.
+        User newUser = new User(nome,cognome,password,username,bDate,residenza,ruolo);
+        this.userList.add(newUser);
+
     }
 
     private String passencryption()throws Exception{

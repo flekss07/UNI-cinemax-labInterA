@@ -17,10 +17,6 @@ public class User {
         this.indirizzo = indirizzo;
         this.ruolo = ruolo;
     }
-    public User(){
-        
-    }
-
     // getter
 
     public String getNome(){ return this.nome; }
