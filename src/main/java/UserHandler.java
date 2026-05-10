@@ -24,7 +24,7 @@ public class UserHandler {
         //da inserire gestione della data
         System.out.println("inserire la data con formato gioni/mesi/anni");
         //inserimento della password
-        while (x) {
+        /*while (x) {
             System.out.println("inserire una password");
             String password = s.nextLine();
 
@@ -40,10 +40,25 @@ public class UserHandler {
             newUser.setPassword(AESencrypt.encrypt(password));
             x=false;
         }
-    }
+    } */
     }
 
-
+    private String passencryption()throws Exception{
+        System.out.println("inserire una password");
+            String password = stringCheck();
+            System.out.println("inserire nuovamente la password");
+            String passcmp = stringCheck();
+           if (!password.equals(passcmp)) {
+                System.out.println("Le password non corrispondono, riprova.");
+                return passencryption();
+            } else if(password.equals(passcmp)){
+                //encrypting della password
+                AESencrypt crypted = new AESencrypt();
+                String cryptpass = AESencrypt.encrypt(password);
+                return cryptpass;
+           }
+           return passencryption();
+    }
     //sotto metodo che fa il check della stringa
     private String stringCheck(){
         Scanner sc =  new Scanner(System.in);
