@@ -17,6 +17,9 @@ public class User {
         this.indirizzo = indirizzo;
         this.ruolo = ruolo;
     }
+    public User(){
+        
+    }
 
     // getter
 
