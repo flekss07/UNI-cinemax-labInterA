@@ -1,18 +1,19 @@
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.StringTokenizer;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
 public class FileHandler {
     private DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
@@ -135,7 +136,8 @@ public class FileHandler {
         String username = record.get("username");
         LocalDate dataDiNascita =  LocalDate.parse(record.get("data_di_nascita")); // converte la data di nascita in formato date
         String indirizzo = record.get("indirizzo");
-        User u = new User(nome,cognome,password,username,dataDiNascita,indirizzo); // crea nuovo oggetto user con i dati
+        Roles ruolo = Roles.CLIENTE;
+        User u = new User(nome,cognome,password,username,dataDiNascita,indirizzo,ruolo); // crea nuovo oggetto user con i dati
         this.userList.add(u); // aggiunge user alla linkedlist dedicata
     }
 
