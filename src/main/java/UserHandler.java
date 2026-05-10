@@ -14,16 +14,9 @@ public class UserHandler {
         System.out.println("scegliere il ruolo");
 
         //da inserire gestione errore nel caso si eviti di inserire il campo
-        while(x) {
-            System.out.println("Inserire Nome");
-            String nome = s.nextLine();
-            if(!nome.isEmpty() &&!nome.trim().isEmpty()) {
-            System.out.println("Si prega di inserire un nome valido");
-            } else{
-                newUser.setNome(nome);
-                x= false;
-            }
-        }
+        System.out.println("Inserire Nome");
+        newUser.setNome(this.stringCheck());
+
         x= true;
         while(x) {
             System.out.println("Inserire Cognome");
@@ -82,16 +75,16 @@ public class UserHandler {
     s.close();
 
 }
-    private String StringCheck(){
+
+    //sotto metodo che fa il check della stringa
+    private String stringCheck(){
         Scanner sc =  new Scanner(System.in);
         String str = sc.next();
         if (!str.trim().isEmpty()) {
-            System.out.println("Si prega di inserire un nome valido");
-            StringCheck();
+            System.out.println("Si prega di inserire un nome valido \ninput: ");
+            return stringCheck();
         }
             return str;
-
-        
     }
 
 
