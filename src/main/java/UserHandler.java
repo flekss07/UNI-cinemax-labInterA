@@ -45,19 +45,16 @@ public class UserHandler {
 
     private String passencryption()throws Exception{
         System.out.println("inserire una password");
-            String password = stringCheck();
+            String password = this.stringCheck();
             System.out.println("inserire nuovamente la password");
-            String passcmp = stringCheck();
-           if (!password.equals(passcmp)) {
+            String passcmp = this.stringCheck();
+            if (!password.equals(passcmp)) {
                 System.out.println("Le password non corrispondono, riprova.");
                 return passencryption();
-            } else if(password.equals(passcmp)){
-                //encrypting della password
-                AESencrypt crypted = new AESencrypt();
-                String cryptpass = AESencrypt.encrypt(password);
-                return cryptpass;
-           }
-           return passencryption();
+            }
+            //encrypting della password
+            AESencrypt crypted = new AESencrypt();
+            return AESencrypt.encrypt(password);
     }
     //sotto metodo che fa il check della stringa
     private String stringCheck(){
