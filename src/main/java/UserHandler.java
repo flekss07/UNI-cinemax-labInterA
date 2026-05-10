@@ -18,6 +18,7 @@ public class UserHandler {
         for (int i = 0; i < userList.size(); i++) {
             User newUser2=userList.get(i);
             if(newUser2.getUsername()==newUser.getUsername()){
+                //to update into trow UserAlreadyExistingException
                 System.err.println("Utente già esistente");
             }
         }
