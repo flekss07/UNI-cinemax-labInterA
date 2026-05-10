@@ -30,7 +30,7 @@ public class FileHandler {
     }
 
     // metodo per caricare i dati delle proiezioni da csv
-    public void LoadProData(String filePath) throws IOException {
+    private void loadProData(String filePath) throws IOException {
         Path path = Paths.get("data",filePath);
         BufferedReader br = Files.newBufferedReader(path); // crea un reader per il file csv che usa inputstream per processare il testo
         CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(br); // crea un parser dedicato per il csv che usa gli header come nomi delle colonne
@@ -161,7 +161,8 @@ public class FileHandler {
                 "password",
                 "username",
                 "data_di_nascita",
-                "indirizzo"
+                "indirizzo",
+                "ruolo"
         );
     }
 
@@ -175,5 +176,29 @@ public class FileHandler {
                 u.getDataDiNascita().format(this.localDateFormatter),
                 u.getIndirizzo()
         );
+    }
+
+    //metodo che fa il get della linkedlist delle proiezioni
+    public LinkedList<Proiezioni> getProList(String path){
+        if(!this.proList.isEmpty()) // se la linkedlist è già caricata la restituisce
+            return this.proList;
+        else
+            try {
+                this.loadProData(path); // se linkedlist è vuota la carica da csv
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        return getProList(path); // richiama la funzione per verificare e restituire i dati
+    }
+
+    //metodo che fa il salvataggio della linkedlist passata su file csv proiezioni
+    public void saveProList(LinkedList<Proiezioni> proList){
+        this.proList = proList; // aggiorna lista salvata in cache
+        try {
+            this.writeToProCsv("proiezioni.csv"); // riscrive file proiezioni csv
+        }
+        catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
