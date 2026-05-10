@@ -48,13 +48,37 @@ public class ProiezioniHandler {
         while(p){
             //controllare come  viene memorizzata all'interno del file (possibilmente in minuti)
             System.out.println("Inserire la durata della proiezione");
-            int durata;
-            durata=sc.nextLine();
+            int durata=sc.nextInt();
             NuovaProiezione.setDurata(durata);
             p=false;
         }
-        
+        p=true;
 
+        //Inserimento etàMinima
+        while(p){
+            System.out.println("Inserire l'età minima");
+            int etaMin=sc.nextInt();
+            NuovaProiezione.setEtaMin(etaMin);
+            p=false;
+        }
+        p=true;
+
+        //inserimento anno d'uscita
+        while(p){
+            System.out.println("Inserire l'anno di pubblicazione del film");
+            int anno=sc.nextInt();
+            NuovaProiezione.setAnno(anno);
+            p=false;
+        }
+        p=true;
+
+        //inserimento del prezzo
+        while(p){
+            System.out.println("Inserire il prezzo del film");
+            float prezzo=sc.nextFloat();
+            NuovaProiezione.setPrezzo(prezzo);
+            p=false;
+        }
+    
     }
-
 }
