@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class UserHandler {
     private final LinkedList<User> userList = new LinkedList<>();
-    boolean x = true;
     /*Funzione x registrare l'utente*/
     public void addUser() throws Exception{
         Scanner s= new Scanner(System.in);
@@ -24,23 +23,9 @@ public class UserHandler {
         //da inserire gestione della data
         System.out.println("inserire la data con formato gioni/mesi/anni");
         //inserimento della password
-        /*while (x) {
-            System.out.println("inserire una password");
-            String password = s.nextLine();
-
-            System.out.println("inserire nuovamente la password");
-            String passcmp = s.nextLine();
-        if (!password.isEmpty() &&!password.trim().isEmpty()) {
-            System.out.println("Si prega di inserire una password valida");
-        } else if (!password.equals(passcmp)) {
-            System.out.println("Le password non corrispondono, riprova.");
-        } else if(password.equals(passcmp)){
-            //encrypting della password
-            AESencrypt crypted = new AESencrypt();
-            newUser.setPassword(AESencrypt.encrypt(password));
-            x=false;
-        }
-    } */
+        System.out.println("inserire una password");
+        String password = this.passencryption();
+        this.
     }
 
     private String passencryption()throws Exception{
