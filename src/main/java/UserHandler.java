@@ -82,6 +82,19 @@ public class UserHandler {
     s.close();
 
 }
+    private String StringCheck(){
+        Scanner sc =  new Scanner(System.in);
+        String str = sc.next();
+        if (!str.trim().isEmpty()) {
+            System.out.println("Si prega di inserire un nome valido");
+            StringCheck();
+        }
+            return str;
+
+        
+    }
+
+
     /* funzione per controllare se l'utente esiste già*/
     public void checkUser(User user){
         for (User u : userList) {
