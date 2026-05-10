@@ -19,7 +19,6 @@ public class ProiezioniHandler {
         System.out.println("Inserire il genere inserendo il numerino assegnato");
         String genere = sc.nextLine();
             /*if(!genere.trim().isEmpty()){
-
             }*/
         // da aggiungere dopo aver fatto l'enum
         //Inserimento regista
