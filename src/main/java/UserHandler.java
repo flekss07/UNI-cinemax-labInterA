@@ -69,7 +69,7 @@ public class UserHandler {
 
             System.out.println("inserire nuovamente la password");
             String passcmp = s.nextLine();
-        if (password.isEmpty() || password.trim().isEmpty()) {
+        if (!password.isEmpty() &&!password.trim().isEmpty()) {
             System.out.println("Si prega di inserire una password valida");
         } else if (!password.equals(passcmp)) {
             System.out.println("Le password non corrispondono, riprova.");
