@@ -118,9 +118,7 @@ public class ProiezioniHandler {
             } else {
                 try {
                     int annoInt = Integer.parseInt(anno);
-                    if (annoInt > 2026) {
-                        System.out.println("L'anno inserito non può essere superiore all'anno corrente");
-                    } else if (annoInt < 1888) {
+                    if (annoInt < 1888) {
                         System.out.println("L'anno inserito non può essere inferiore al 1888, anno di uscita del primo film");
                     } else {
                         NuovaProiezione.setAnno(annoInt);
