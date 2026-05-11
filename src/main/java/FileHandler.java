@@ -302,7 +302,7 @@ FileHandler {
      * Metodo che restituisce la lista degli utenti, se vuota carica direttamente dal CSV
      *
      * @return lista utenti*/
-    public LinkedList getUserList(){
+    public LinkedList<User> getUserList(){
         if(!this.userList.isEmpty()) // se la linkedlist è già caricata la restituisce
             return this.userList;
         else
