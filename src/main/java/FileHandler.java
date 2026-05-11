@@ -307,7 +307,7 @@ FileHandler {
             return this.userList;
         try {
             this.loadUserData(this.path);
-            return getUserList();// se linkedlist è vuota la carica da csv
+            return this.userList;// se linkedlist è vuota la carica da csv
         }
         catch (IOException e) {
             throw new RuntimeException(e);
