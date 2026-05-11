@@ -39,6 +39,7 @@ public class UserHandler {
         this.userList.add(newUser);
 
     }
+    
 //funzione di encryption x la password, più check
     private String passencryption() throws Exception {
         System.out.println("inserire una password");
