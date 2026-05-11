@@ -305,13 +305,14 @@ FileHandler {
     public LinkedList<User> getUserList(){
         if(!this.userList.isEmpty()) // se la linkedlist è già caricata la restituisce
             return this.userList;
-        else
-            try {
-                this.loadUserData(this.path); // se linkedlist è vuota la carica da csv
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        return getUserList(); // richiama la funzione per verificare e restituire i dati
+        try {
+            this.loadUserData(this.path);
+            return getUserList();// se linkedlist è vuota la carica da csv
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+         // richiama la funzione per verificare e restituire i dati
     }
 
     // metod oper salvare la linkedlist degli user
