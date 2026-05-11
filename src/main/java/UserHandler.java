@@ -1,4 +1,6 @@
+import javax.management.relation.Role;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -13,28 +15,8 @@ public class UserHandler {
     }
 
     /*Funzione x registrare l'utente*/
-    public void addUser() throws Exception {
-        Scanner s = new Scanner(System.in);
-        //ruolo
-        System.out.println("scegliere il ruolo");
-        //Inserimento nome
-        System.out.println("Inserire Nome");
-        String nome = this.stringCheck();
-        //inserimento cognome
-        System.out.println("Inserire Cognome");
-        String cognome = this.stringCheck();
-        //inserimento username
-        System.out.println("Inserire Username");
-        String username = this.stringCheck();
-        System.out.println("Inserire indirizzo di residenza");
-        String residenza = this.stringCheck();
-        //da inserire gestione della data
-        System.out.println("inserire la data di nascita con formato gioni/mesi/anni");
-        String bDate = this.stringCheck();
-        System.out.println("inserire ruolo: ");
-        String ruolo = this.stringCheck();
-        //inserimento della password
-        String password = this.passencryption();
+    public void addUser(String nome, String cognome, String password, String username, LocalDate bDate, String residenza, Roles ruolo) throws Exception {
+
         User newUser = new User(nome, cognome, password, username, bDate, residenza, ruolo);
         this.userList.add(newUser);
 
