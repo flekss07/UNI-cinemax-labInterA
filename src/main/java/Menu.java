@@ -20,6 +20,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
                 case 2://login
+                    System.out.println("Inizio procedura di login");
                     this.userLogin();
                     break;
                 case 3://guest
