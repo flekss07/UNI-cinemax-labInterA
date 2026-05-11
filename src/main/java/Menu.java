@@ -9,7 +9,7 @@ public class Menu {
 
     public void MenuSelect() { // costruttore menu
         int selector = 3;
-        while () {
+        while (true) {
             switch (selector) {
                 case 1://registrarsi
                     try {
@@ -160,8 +160,22 @@ public class Menu {
         String anno = String.valueOf(this.numbcheckeranno());
         return anno+"-"+mesi+"-"+giorni;
     }
+    public void userLogin() throws RuntimeException {
+        try {
+            this.uh.loginUser();
+        } catch (Exception e) {
+            System.out.println("Login non riuscito...");
+            throw new RuntimeException(e){
+            };
+        }
+        System.out.println("Login eseguito con successo!");
+    }
 
+    //metodo guest
+    public void Guest(){
 
-
-
+    }
 }
+
+
+
