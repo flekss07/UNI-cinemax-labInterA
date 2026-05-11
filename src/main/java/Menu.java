@@ -49,12 +49,14 @@ public class Menu {
         System.out.println("Inserire indirizzo di residenza");
         String residenza = this.stringCheck();
         //da inserire gestione della data
-        System.out.println("inserire la data di nascita con formato gioni/mesi/anni");
-        String bDate = this.stringCheck();
         System.out.println("inserire ruolo: ");
-        String ruolo = this.stringCheck();
+        String annoDiNascita = this.inseriredata();
+        //inserimento ruolo
+        Roles ruolo = this.chooseRole();
         //inserimento della password
+        System.out.println("Inserire la password:");
         String password = this.passencryption();
+        this.uh.addUser(nome, cognome, password, username, annoDiNascita, residenza, ruolo);
 
     }
     private String stringCheck() {
@@ -80,5 +82,86 @@ public class Menu {
         AESencrypt crypted = new AESencrypt();
         return AESencrypt.encrypt(password);
     }
+    private Roles chooseRole(){
+        System.out.println("selezionare ruolo:\n1)cliente\n2)proiezionista\n3)bibliettaio ");
+        int choice = Integer.parseInt(this.stringCheck());
+        switch (choice) {
+            case 1:
+                return Roles.CLIENTE;
+            case 2:
+                return Roles.PROIEZIONISTA;
+            case 3:
+                return Roles.BIGLIETTAIO;
+            default:
+                System.out.println("input non valido, riprovare");
+                return null;
+        }
+    }
+    private int numbcheckergiorni(){
+        String str = this.stringCheck();
+        try {
+            int numInt = Integer.parseInt(str);
+            if (numInt <= 0) {
+                System.out.println("Il numero inserito non può essere negativo, rinserire il numero");
+                return numbcheckergiorni();
+            }
+            if(numInt >31){
+                System.out.println("Il numeroinserito non può essere maggiore di 31, rinserire il numero");
+                return numbcheckergiorni();
+            }
+            return numInt;
+        } catch (NumberFormatException e) {
+            System.out.println("Quello che hai inserito non è un numero. Riprova");
+            return numbcheckergiorni();
+        }
+    }
+    private int  numbcheckermesi(){
+        String str = this.stringCheck();
+        try {
+            int numInt = Integer.parseInt(str);
+            if (numInt <= 0) {
+                System.out.println("Il numero inserito non può essere negativo, rinserire il numero");
+                return numbcheckermesi();
+            }
+            if(numInt >12){
+                System.out.println("Il numeroinserito non può essere maggiore di 12, rinserire il numero");
+                return numbcheckermesi();
+            }
+            return numInt;
+        } catch (NumberFormatException e) {
+            System.out.println("Quello che hai inserito non è un numero. Riprova");
+            return numbcheckermesi();
+        }
+    }
+    private int numbcheckeranno(){
+        String str = this.stringCheck();
+        try {
+            int numInt = Integer.parseInt(str);
+            if (numInt <= 0) {
+                System.out.println("Il numero inserito non può essere negativo, rinserire il numero");
+                return numbcheckeranno();
+            }
+            if(numInt >2026){
+                System.out.println("Il numeroinserito non può essere maggiore di 2026, rinserire il numero");
+                return numbcheckeranno();
+            }
+            return numInt;
+        } catch (NumberFormatException e) {
+            System.out.println("Quello che hai inserito non è un numero. Riprova");
+            return numbcheckeranno();
+        }
+    }
+    private String inseriredata(){
+        System.out.println("Inserire la data di nascita:");
+        String giorni = String.valueOf(this.numbcheckergiorni());
+        System.out.println("Inserire il mese di nascita(in  numeri):");
+        String mesi = String.valueOf(this.numbcheckermesi());
+        System.out.println("Inserire l'anno di nascita");
+        String anno = String.valueOf(this.numbcheckeranno());
+        return anno+"-"+mesi+"-"+giorni;
+    }
+
+
+
 
 }
