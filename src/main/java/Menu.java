@@ -35,8 +35,6 @@ public class Menu {
 
 
     public  void userRegister() throws Exception {
-        //ruolo
-        System.out.println("scegliere il ruolo");
         //Inserimento nome
         System.out.println("Inserire Nome");
         String nome = this.stringCheck();
@@ -48,20 +46,17 @@ public class Menu {
         String username = this.stringCheck();
         System.out.println("Inserire indirizzo di residenza");
         String residenza = this.stringCheck();
-        //da inserire gestione della data
-        System.out.println("inserire ruolo: ");
         String annoDiNascita = this.inseriredata();
         //inserimento ruolo
         Roles ruolo = this.chooseRole();
         //inserimento della password
-        System.out.println("Inserire la password:");
         String password = this.passencryption();
         this.uh.addUser(nome, cognome, password, username, annoDiNascita, residenza, ruolo);
 
     }
     private String stringCheck() {
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
+        String str = sc.nextLine();
         if (str.trim().isEmpty()) {
             System.out.println("Si prega di inserire un input valido \ninput: ");
             return stringCheck();
@@ -152,7 +147,7 @@ public class Menu {
         }
     }
     private String inseriredata(){
-        System.out.println("Inserire la data di nascita:");
+        System.out.println("Inserire il giorno di nascita");
         String giorni = String.valueOf(this.numbcheckergiorni());
         System.out.println("Inserire il mese di nascita(in  numeri):");
         int mesi = this.numbcheckermesi();
