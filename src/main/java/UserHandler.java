@@ -40,7 +40,9 @@ public class UserHandler {
         String password = this.passencryption();
         User newUser = new User(nome, cognome, password, username, bDate, residenza, ruolo);
         this.userList.add(newUser);
+        fh.saveUserList(this.userList);
     }
+
 
     // sotto metodo per convertire la data da stringa a formato LocalDate
     private LocalDate convertBdate(String bdate){
