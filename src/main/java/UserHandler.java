@@ -12,7 +12,7 @@ public class UserHandler {
     public UserHandler() {
         this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.fh = new FileHandler("users.csv");
-        this.userList = new LinkedList<>();  //= this.fh.getUserList();
+        this.userList = this.fh.getUserList();
     }
 
     /*Funzione x registrare l'utente*/
@@ -20,7 +20,8 @@ public class UserHandler {
         LocalDate bDate = this.convertBdate(data);
         User newUser = new User(nome, cognome, password, username, bDate, residenza, ruolo);
         this.userList.add(newUser);
-        fh.saveUserList(this.userList);
+        fh.saveUserList(this.userList); // salva modifiche
+        this.userList = this.fh.getUserList(); // aggiorna lista corrente di user
     }
 
 
