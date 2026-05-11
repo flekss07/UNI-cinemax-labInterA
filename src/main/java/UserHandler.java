@@ -1,14 +1,17 @@
-import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserHandler {
     private LinkedList<User> userList;
     private FileHandler fh;
+    private DateTimeFormatter localDateFormatter;
 
     //this.userList  = this.fh.getUserList();
     public UserHandler() {
-        this.fh = new FileHandler();
+        this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.fh = new FileHandler("users.csv");
         this.userList = new LinkedList<>();  //= this.fh.getUserList();
     }
 
@@ -30,16 +33,37 @@ public class UserHandler {
         String residenza = this.stringCheck();
         //da inserire gestione della data
         System.out.println("inserire la data di nascita con formato gioni/mesi/anni");
-        String bDate = this.stringCheck();
+        LocalDate bDate = this.convertBdate(this.stringCheck());
         System.out.println("inserire ruolo: ");
-        String ruolo = this.stringCheck();
+        Roles ruolo = this.chooseRole();
         //inserimento della password
         String password = this.passencryption();
         User newUser = new User(nome, cognome, password, username, bDate, residenza, ruolo);
         this.userList.add(newUser);
-
     }
-    
+
+    // sotto metodo per convertire la data da stringa a formato LocalDate
+    private LocalDate convertBdate(String bdate){
+        LocalDate bDate = LocalDate.parse(bdate,localDateFormatter);
+        return bDate;
+    }
+
+    //sotto metodo che chiede di seleizonare il ruolo
+    private Roles chooseRole(){
+        System.out.println("selezionare ruolo:\n1)cliente\n2)proiezionista\n3)bibliettaio ");
+        int choice = Integer.parseInt(this.stringCheck());
+        switch (choice) {
+            case 1:
+                return Roles.CLIENTE;
+            case 2:
+                return Roles.PROIEZIONISTA;
+            case 3:
+                return Roles.BIGLIETTAIO;
+            default:
+                System.out.println("input non valido, riprovare");
+                return null;
+        }
+    }
 //funzione di encryption x la password, più check
     private String passencryption() throws Exception {
         System.out.println("inserire una password");
