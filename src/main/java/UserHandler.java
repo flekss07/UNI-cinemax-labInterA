@@ -1,11 +1,23 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class UserHandler {
-    private final LinkedList<User> userList = new LinkedList<>();
+    private LinkedList<User> userList;
+    private FileHandler fh;
+    private DateTimeFormatter localDateFormatter;
+
+    //this.userList  = this.fh.getUserList();
+    public UserHandler() {
+        this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.fh = new FileHandler("users.csv");
+        this.userList = new LinkedList<>();  //= this.fh.getUserList();
+    }
+
     /*Funzione x registrare l'utente*/
-    public void addUser() throws Exception{
-        Scanner s= new Scanner(System.in);
+    public void addUser() throws Exception {
+        Scanner s = new Scanner(System.in);
         //ruolo
         System.out.println("scegliere il ruolo");
         //Inserimento nome
@@ -21,17 +33,41 @@ public class UserHandler {
         String residenza = this.stringCheck();
         //da inserire gestione della data
         System.out.println("inserire la data di nascita con formato gioni/mesi/anni");
-        String bDate = this.stringCheck();
+        LocalDate bDate = this.convertBdate(this.stringCheck());
         System.out.println("inserire ruolo: ");
-        String ruolo = this.stringCheck();
+        Roles ruolo = this.chooseRole();
         //inserimento della password
         String password = this.passencryption();
-        User newUser = new User(nome,cognome,password,username,bDate,residenza,ruolo);
+        User newUser = new User(nome, cognome, password, username, bDate, residenza, ruolo);
         this.userList.add(newUser);
-
+        fh.saveUserList(this.userList);
     }
 
-    private String passencryption()throws Exception{
+
+    // sotto metodo per convertire la data da stringa a formato LocalDate
+    private LocalDate convertBdate(String bdate){
+        LocalDate bDate = LocalDate.parse(bdate,localDateFormatter);
+        return bDate;
+    }
+
+    //sotto metodo che chiede di seleizonare il ruolo
+    private Roles chooseRole(){
+        System.out.println("selezionare ruolo:\n1)cliente\n2)proiezionista\n3)bibliettaio ");
+        int choice = Integer.parseInt(this.stringCheck());
+        switch (choice) {
+            case 1:
+                return Roles.CLIENTE;
+            case 2:
+                return Roles.PROIEZIONISTA;
+            case 3:
+                return Roles.BIGLIETTAIO;
+            default:
+                System.out.println("input non valido, riprovare");
+                return null;
+        }
+    }
+//funzione di encryption x la password, più check
+    private String passencryption() throws Exception {
         System.out.println("inserire una password");
         String password = this.stringCheck();
         System.out.println("inserire nuovamente la password");
@@ -44,12 +80,13 @@ public class UserHandler {
         AESencrypt crypted = new AESencrypt();
         return AESencrypt.encrypt(password);
     }
+
     //sotto metodo che fa il check della stringa
-    private String stringCheck(){
-        Scanner sc =  new Scanner(System.in);
+    private String stringCheck() {
+        Scanner sc = new Scanner(System.in);
         String str = sc.next();
-        if (!str.trim().isEmpty()) {
-            System.out.println("Si prega di inserire un nome valido \ninput: ");
+        if (str.trim().isEmpty()) {
+            System.out.println("Si prega di inserire un input valido \ninput: ");
             return stringCheck();
         }
         return str;
@@ -57,13 +94,37 @@ public class UserHandler {
 
 
     /* funzione per controllare se l'utente esiste già*/
-    public void checkUser(User user){
-        for (User u : userList) {
-            if (u.getUsername().equals(user.getUsername())) {
-                // to change into throw exception (non bloccante)
-                System.err.println("Errore: Username già esistente.");
+    private User checkUser(String username) {
+        //this.userList  = this.fh.getUserList();
+        for (User u : this.userList) {
+            if (u.getUsername().equals(username.trim())) {
+                return u;
             }
         }
+        return null;
     }
+//Esiste username e passa al controllo password
+    public void loginUser() throws Exception {
+        System.out.println("Insere l'username:");
+        String username = this.stringCheck();
+        User u = this.checkUser(username);
+        if (u!=null) {
+            passcheck(u);
+        } else {
+            System.out.println("Username non trovato, riprova");
+            loginUser();
+        }
+    }
+    //Controlla la password in maniera ricorsiva
+    private void  passcheck(User u)throws Exception{
+     System.out.println("Inserire la password");
+    String passcmp = this.stringCheck();
+            if (passcmp.equals(u.getPassword())) {
+        System.out.println("Login effettuato con successo");
+    } else {
+        System.out.println("Password errata, riprova");
+        passcheck(u);
 
+            }
+}
 }
