@@ -258,10 +258,11 @@ FileHandler {
         printer.printRecord(
                 u.getNome(),
                 u.getCognome(),
-                u.getPassword(),
+                u.getUsername(),
                 u.getPassword(),
                 u.getDataDiNascita().format(this.localDateFormatter),
-                u.getIndirizzo()
+                u.getIndirizzo(),
+                u.getRole()
         );
     }
 
