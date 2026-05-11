@@ -7,7 +7,7 @@ public class Menu {
         this.uh = new UserHandler();
     }
 
-    public void MenuSelect() { // costruttore menu
+    public void menuSelect() { // costruttore menu
 
         while (true) {
             System.out.println("Inserire il numero corrispondente alla funzione x attivarla\n1)registrarsi\neffettuare il login\n3)Continuare come quest ");
