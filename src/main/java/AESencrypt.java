@@ -3,7 +3,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AESencrypt {
-    private static final String FIXED_KEY = "cinemax2026key!"; // 16 caratteri per AES-128
+    private static final String FIXED_KEY = "cinemax2026key!!"; // 16 caratteri per AES-128
 
     // Prende in input una password e restituisce la password codificata
     public static String encrypt(String password) throws Exception {
