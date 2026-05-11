@@ -8,8 +8,10 @@ public class Menu {
     }
 
     public void MenuSelect() { // costruttore menu
-        int selector = 3;
+
         while (true) {
+            System.out.println("Inserire il numero corrispondente alla funzione x attivarla\n1)registrarsi\neffettuare il login\n3)Continuare come quest ");
+            int selector = this.numbCheck();
             switch (selector) {
                 case 1://registrarsi
                     try {
@@ -17,7 +19,6 @@ public class Menu {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-
                 case 2://login
                     this.userLogin();
                     break;
@@ -160,6 +161,20 @@ public class Menu {
         System.out.println("Inserire l'anno di nascita");
         String anno = String.valueOf(this.numbcheckeranno());
         return anno+"-"+valMesi+"-"+giorni;
+    }
+    private int numbCheck() {
+        String str = this.stringCheck();
+        try {
+            int numInt = Integer.parseInt(str);
+            if (numInt <= 0) {
+                System.out.println("Il numero inserito non può essere negativo, rinserire il numero");
+                return numbCheck();
+            }
+            return numInt;
+        } catch (NumberFormatException e) {
+            System.out.println("Quello che hai inserito non è un numero. Riprova");
+            return numbCheck();
+        }
     }
     public void userLogin() throws RuntimeException {
         try {
