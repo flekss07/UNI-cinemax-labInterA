@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Menu {
-    private UserHandler uh;
+    private final UserHandler uh;
 
     public Menu() { //costruzione oggetto classe userhandler
         this.uh = new UserHandler();
@@ -76,7 +76,7 @@ public class Menu {
             return passencryption();
         }
         //encrypting della password
-        AESencrypt crypted = new AESencrypt();
+
         return AESencrypt.encrypt(password);
     }
     private Roles chooseRole(){
@@ -150,7 +150,13 @@ public class Menu {
     }
     private String inseriredata(){
         System.out.println("Inserire il giorno di nascita");
-        String giorni = String.valueOf(this.numbcheckergiorni());
+        int giorni = this.numbcheckergiorni();
+        String valGiorni;
+        if(giorni<10){
+            valGiorni = "0"+giorni;
+        }else {
+            valGiorni = String.valueOf(giorni);
+        }
         System.out.println("Inserire il mese di nascita(in  numeri):");
         int mesi = this.numbcheckermesi();
         String valMesi;
@@ -161,7 +167,7 @@ public class Menu {
         }
         System.out.println("Inserire l'anno di nascita");
         String anno = String.valueOf(this.numbcheckeranno());
-        return anno+"-"+valMesi+"-"+giorni;
+        return anno+"-"+valMesi+"-"+valGiorni;
     }
     private int numbCheck() {
         String str = this.stringCheck();
