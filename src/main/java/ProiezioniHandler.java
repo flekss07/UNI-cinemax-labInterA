@@ -11,7 +11,6 @@ public class ProiezioniHandler {
     public void addProiezione() {
         Proiezioni NuovaProiezione = new Proiezioni();
         Scanner sc = new Scanner(System.in);
-        boolean p = true;
         //Aggiunta titolo a nuova proiezione
         System.out.println("Inserire il Titolo");
         String titolo = this.stringCheck();
