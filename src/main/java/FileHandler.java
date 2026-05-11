@@ -1,18 +1,19 @@
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.StringTokenizer;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
 public class FileHandler {
     private DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
@@ -29,7 +30,7 @@ public class FileHandler {
     }
 
     // metodo per caricare i dati delle proiezioni da csv
-    public void LoadProData(String filePath) throws IOException {
+    private void loadProData(String filePath) throws IOException {
         Path path = Paths.get("data",filePath);
         BufferedReader br = Files.newBufferedReader(path); // crea un reader per il file csv che usa inputstream per processare il testo
         CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(br); // crea un parser dedicato per il csv che usa gli header come nomi delle colonne
@@ -135,7 +136,8 @@ public class FileHandler {
         String username = record.get("username");
         LocalDate dataDiNascita =  LocalDate.parse(record.get("data_di_nascita")); // converte la data di nascita in formato date
         String indirizzo = record.get("indirizzo");
-        User u = new User(nome,cognome,password,username,dataDiNascita,indirizzo); // crea nuovo oggetto user con i dati
+        Roles ruolo = Roles.CLIENTE;
+        User u = new User(nome,cognome,password,username,dataDiNascita,indirizzo,ruolo); // crea nuovo oggetto user con i dati
         this.userList.add(u); // aggiunge user alla linkedlist dedicata
     }
 
@@ -159,7 +161,8 @@ public class FileHandler {
                 "password",
                 "username",
                 "data_di_nascita",
-                "indirizzo"
+                "indirizzo",
+                "ruolo"
         );
     }
 
@@ -173,5 +176,29 @@ public class FileHandler {
                 u.getDataDiNascita().format(this.localDateFormatter),
                 u.getIndirizzo()
         );
+    }
+
+    //metodo che fa il get della linkedlist delle proiezioni
+    public LinkedList<Proiezioni> getProList(String path){
+        if(!this.proList.isEmpty()) // se la linkedlist è già caricata la restituisce
+            return this.proList;
+        else
+            try {
+                this.loadProData(path); // se linkedlist è vuota la carica da csv
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        return getProList(path); // richiama la funzione per verificare e restituire i dati
+    }
+
+    //metodo che fa il salvataggio della linkedlist passata su file csv proiezioni
+    public void saveProList(LinkedList<Proiezioni> proList){
+        this.proList = proList; // aggiorna lista salvata in cache
+        try {
+            this.writeToProCsv("proiezioni.csv"); // riscrive file proiezioni csv
+        }
+        catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }
