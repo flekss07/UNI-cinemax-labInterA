@@ -21,13 +21,14 @@ FileHandler {
     private DateTimeFormatter localDateFormatter;
     private LinkedList<Proiezioni> proList; // linkedlist
     private LinkedList<User> userList;
-    private String proCsvPath;// percorso file csv proiezioni
-    private String userCsvPath; // percorso file csv user
-    public FileHandler() {
+    private String path;// percorso file csv proiezioni
+
+    public FileHandler(String path) {
         this.proList = new LinkedList<>(); // inizializza linkedlist proiezioni
         this.userList = new LinkedList<>(); // inizializza linkedlist user
         this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.path = path;
     }
 
     // metodo per caricare i dati delle proiezioni da csv
@@ -55,8 +56,7 @@ FileHandler {
 
     // sotto metodo per convertire le stringhe in formato Date
     private LocalDateTime convertDate(String strDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // imposta pattern di formattazione data
-        LocalDateTime projectionDate = LocalDateTime.parse(strDate, formatter); // fa il parse della data nel formato preimpostato
+        LocalDateTime projectionDate = LocalDateTime.parse(strDate, this.formatter); // fa il parse della data nel formato preimpostato
         return projectionDate;
     }
 
@@ -121,7 +121,7 @@ FileHandler {
     }
 
     // metodo che prende i dati dal csv degli utenti e li inserisce nella linkedlist dedicata
-    public void LoadUserData(String filePath) throws IOException {
+    public void loadUserData(String filePath) throws IOException {
         Path path = Paths.get("data",filePath);
         BufferedReader br = Files.newBufferedReader(path); // crea un reader per il file csv che usa inputstream per processare il testo
         CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(br); // crea un parser dedicato per il csv che usa gli header come nomi delle colonne
@@ -143,7 +143,7 @@ FileHandler {
     }
 
     //metodo per scrivere sul csv degli user
-    public void WriteToUserCsv(String path)throws IOException {
+    public void writeToUserCsv(String path)throws IOException {
         Writer writer = new FileWriter(path); // crea writer per scrivere su file
         CSVPrinter printer = new CSVPrinter(writer, CSVFormat.DEFAULT); // crea csv printer per creare record da scrivere su file
         this.createUserHeader(printer);
@@ -180,25 +180,47 @@ FileHandler {
     }
 
     //metodo che fa il get della linkedlist delle proiezioni
-    public LinkedList<Proiezioni> getProList(String path){
+    public LinkedList<Proiezioni> getProList(){
         if(!this.proList.isEmpty()) // se la linkedlist è già caricata la restituisce
             return this.proList;
         else
             try {
-                this.loadProData(path); // se linkedlist è vuota la carica da csv
+                this.loadProData(this.path); // se linkedlist è vuota la carica da csv
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        return getProList(path); // richiama la funzione per verificare e restituire i dati
+        return getProList(); // richiama la funzione per verificare e restituire i dati
     }
 
     //metodo che fa il salvataggio della linkedlist passata su file csv proiezioni
     public void saveProList(LinkedList<Proiezioni> proList){
         this.proList = proList; // aggiorna lista salvata in cache
         try {
-            this.writeToProCsv("proiezioni.csv"); // riscrive file proiezioni csv
+            this.writeToProCsv(this.path); // riscrive file proiezioni csv
+        }catch(IOException e){
+            throw new RuntimeException(e);
         }
-        catch(IOException e){
+    }
+
+    //metodo getter della linkedlist di user
+    public LinkedList getUserList(){
+        if(!this.userList.isEmpty()) // se la linkedlist è già caricata la restituisce
+            return this.userList;
+        else
+            try {
+                this.loadUserData(this.path); // se linkedlist è vuota la carica da csv
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        return getUserList(); // richiama la funzione per verificare e restituire i dati
+    }
+
+    // metod oper salvare la linkedlist degli user
+    public void saveUserList(LinkedList<User> userList){
+        this.userList = userList; // aggiorna lista salvata in cache
+        try {
+            this.writeToUserCsv(this.path); // riscrive file proiezioni csv
+        }catch(IOException e){
             throw new RuntimeException(e);
         }
     }

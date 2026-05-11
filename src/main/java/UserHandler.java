@@ -39,6 +39,7 @@ public class UserHandler {
         this.userList.add(newUser);
 
     }
+    
 //funzione di encryption x la password, più check
     private String passencryption() throws Exception {
         System.out.println("inserire una password");
@@ -59,7 +60,7 @@ public class UserHandler {
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
         if (!str.trim().isEmpty()) {
-            System.out.println("Si prega di inserire un nome valido \ninput: ");
+            System.out.println("Si prega di inserire un input valido \ninput: ");
             return stringCheck();
         }
         return str;
