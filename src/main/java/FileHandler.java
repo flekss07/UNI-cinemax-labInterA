@@ -53,10 +53,18 @@ public class FileHandler {
         this.proList.add(p); // aggiunge oggetto proiezioni alla linkedlist delle proiezioni
     }
 
+    
+
     // sotto metodo per convertire le stringhe in formato Date
     private LocalDateTime convertDate(String strDate) {
         LocalDateTime projectionDate = LocalDateTime.parse(strDate, this.formatter); // fa il parse della data nel formato preimpostato
         return projectionDate;
+    }
+
+    // sotto metodo per convertire la data da stringa a formato LocalDate
+    private LocalDate convertBdate(String bdate){
+        LocalDate bDate = LocalDate.parse(bdate,localDateFormatter);
+        return bDate;
     }
 
     //metodo di testing per convertire i dati di un oggetto proiezione in una stringa
