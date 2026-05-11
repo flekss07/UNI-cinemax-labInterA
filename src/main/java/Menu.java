@@ -137,7 +137,7 @@ public class Menu {
         String str = this.stringCheck();
         try {
             int numInt = Integer.parseInt(str);
-            if (numInt <= 0) {
+            if (numInt <=0) {
                 System.out.println("Il numero inserito non può essere negativo, rinserire il numero");
                 return numbcheckeranno();
             }
@@ -155,10 +155,16 @@ public class Menu {
         System.out.println("Inserire la data di nascita:");
         String giorni = String.valueOf(this.numbcheckergiorni());
         System.out.println("Inserire il mese di nascita(in  numeri):");
-        String mesi = String.valueOf(this.numbcheckermesi());
+        int mesi = this.numbcheckermesi();
+        String valMesi;
+        if(mesi<10){
+             valMesi = "0"+mesi;
+        }else{
+            valMesi = String.valueOf(mesi);
+        }
         System.out.println("Inserire l'anno di nascita");
         String anno = String.valueOf(this.numbcheckeranno());
-        return anno+"-"+mesi+"-"+giorni;
+        return anno+"-"+valMesi+"-"+giorni;
     }
     public void userLogin() throws RuntimeException {
         try {
