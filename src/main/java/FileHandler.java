@@ -15,7 +15,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-public class FileHandler {
+public class
+FileHandler {
     private DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
     private DateTimeFormatter localDateFormatter;
     private LinkedList<Proiezioni> proList; // linkedlist
