@@ -1,13 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ProiezioniHandler {
-    private LinkedList<User> proiezioniList;
-
-    public ProiezioniHandler(LinkedList proiezioniList) {
-        this.proiezioniList = proiezioniList;
+    private LinkedList<Proiezioni> proiezioniList;
+    private FileHandler fh;
+    private DateTimeFormatter localDateFormatter;
+    public ProiezioniHandler() {
+        this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.fh = new FileHandler("proiezioni.csv");
+        this.proiezioniList = this.fh.getProList();
     }
-
+/*
     public void addProiezione() {
         Proiezioni NuovaProiezione = new Proiezioni();
         Scanner sc = new Scanner(System.in);
@@ -18,7 +23,7 @@ public class ProiezioniHandler {
         System.out.println("Inserire il genere inserendo il numerino assegnato");
         String genere = sc.nextLine();
             /*if(!genere.trim().isEmpty()){
-            }*/
+            }
         // da aggiungere dopo aver fatto l'enum
         //Inserimento regista
         System.out.println("Inserire il regista");
@@ -36,7 +41,7 @@ public class ProiezioniHandler {
         int anno = this.releaseCheck();
         //inserimento del prezzo
         System.out.println("Inserire il prezzo del film");
-        float prezzo = this.priceCheck();
+        //float prezzo = this.priceCheck();
     }
     private String stringCheck() {
         Scanner sc = new Scanner(System.in);
@@ -96,24 +101,23 @@ public class ProiezioniHandler {
             return releaseCheck();
         }
     }
-    private float  priceCheck(){
-        String str = this.stringCheck();
-        try {
-            float prezzoFloat = Float.parseFloat(str);
-            if (prezzoFloat < 0) {
-                System.out.println("Il prezzo inserito non può essere negativo");
-                return priceCheck();
-            }
-            return prezzoFloat;
-        } catch (NumberFormatException e) {
-            System.out.println("Quello che hai inserito non è un numero. Riprova");
-            return priceCheck();
-        }
+    */
+    //funzione che carica in lista le proiezioni
+    public void proiezionicreator(Genres genere, String titolo, String regista, String data, int durata, int etaMIn, int  anno, float prezzo){
+    LocalDate dataProiezione = this.convertBdate(data);
+    Proiezioni nuovaProiezione = new Proiezioni(genere, titolo, regista, dataProiezione, durata, etaMIn, anno, prezzo);
+    this.proiezioniList.add(nuovaProiezione);
+    this.fh.saveProList(this.proiezioniList);
+    this.proiezioniList= this.fh.getProList();
     }
-
-
-
-
-
-
+    private LocalDate convertBdate(String bdate){
+        LocalDate bDate = LocalDate.parse(bdate,localDateFormatter);
+        return bDate;
+    }
 }
+
+
+
+
+
+

@@ -70,9 +70,9 @@ FileHandler {
      *
      * @param record record CSV della proiezione*/
     private void createProObj(CSVRecord record) {
-        LocalDateTime date = convertDate(record.get("data_ora_proiezione")); // converte la data in formate LocalDateTime
+        LocalDate date = convertBdate(record.get("data_ora_proiezione")); // converte la data in formate LocalDateTime
         String titolo = record.get("titolo_film");
-        String genere = record.get("genere");
+        Genres genere = Genres.valueOf(record.get("genere"));
         String regista = record.get("regista");
         int anno = Integer.parseInt(record.get("anno")); // converte in formato in
         int durata = Integer.parseInt(record.get("durata_minuti"));
