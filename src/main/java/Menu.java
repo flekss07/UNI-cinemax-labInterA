@@ -33,7 +33,11 @@ public class Menu {
 
 
     }
+    public  void Addproiezioni(){
+        System.out.println("Inserire il Titolo");
+        String titolo = this.stringCheck();
 
+    }
 
 
     public  void userRegister() throws Exception {
