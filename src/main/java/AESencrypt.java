@@ -14,15 +14,4 @@ public class AESencrypt {
         byte[] encryptedpass = cipher.doFinal(password.getBytes());
         return Base64.getEncoder().encodeToString(encryptedpass);
     }
-
-    // Prende in input una password codificata e restituisce la password originale
-    public static String decrypt(String passwordCodificata) throws Exception {
-        SecretKeySpec chiaveSegreta = new SecretKeySpec(
-                FIXED_KEY.getBytes(), 0, 16, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, chiaveSegreta);
-        byte[] decodedPassword = Base64.getDecoder().decode(passwordCodificata);
-        byte[] decryptedPassword = cipher.doFinal(decodedPassword);
-        return new String(decryptedPassword);
-    }
 }

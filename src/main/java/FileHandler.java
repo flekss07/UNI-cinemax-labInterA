@@ -25,10 +25,10 @@ public class
 FileHandler {
     /**
      * formatter che esegue la conversione da LocalDateTime a String*/
-    private DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
+    private final DateTimeFormatter formatter; // formatter per convertire da LocalDateTime a string
     /**
      * formatter che esegue la conversione da LocalDate a String*/
-    private DateTimeFormatter localDateFormatter;
+    private final DateTimeFormatter localDateFormatter;
     /**
      * linkedList contenente le proiezioni caricate dal file CSV*/
     private LinkedList<Proiezioni> proList; // linkedlist
@@ -37,7 +37,7 @@ FileHandler {
     private LinkedList<User> userList;
     /**
      * Percorso del file CSV*/
-    private Path path;// percorso file csv proiezioni
+    private final Path path;// percorso file csv proiezioni
 
     /**Costruttore della classe FileHandler
      *
@@ -92,15 +92,15 @@ FileHandler {
      * @return data convertita
      * */
     private LocalDateTime convertDate(String strDate) {
-        LocalDateTime projectionDate = LocalDateTime.parse(strDate, this.formatter); // fa il parse della data nel formato preimpostato
-        return projectionDate;
+        // fa il parse della data nel formato preimpostato
+        return LocalDateTime.parse(strDate, this.formatter);
     }
 
     // sotto metodo per convertire la data da stringa a formato LocalDate
-    private LocalDate convertBdate(String bdate){
+    /*private LocalDate convertBdate(String bdate){
         LocalDate bDate = LocalDate.parse(bdate,localDateFormatter);
         return bDate;
-    }
+    }*/
 
     //metodo di testing per convertire i dati di un oggetto proiezione in una stringa
     /**Metodo che restituisce una rappresentazione testuale dell'oggetto Proiezioni
