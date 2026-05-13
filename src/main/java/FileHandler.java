@@ -45,7 +45,7 @@ FileHandler {
     public FileHandler(String path) {
         this.proList = new LinkedList<>(); // inizializza linkedlist proiezioni
         this.userList = new LinkedList<>(); // inizializza linkedlist user
-        this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.path = Paths.get("data",path); // imposta percorso file corretto
     }
@@ -70,7 +70,7 @@ FileHandler {
      *
      * @param record record CSV della proiezione*/
     private void createProObj(CSVRecord record) {
-        LocalDate date = convertBdate(record.get("data_ora_proiezione")); // converte la data in formate LocalDateTime
+        LocalDateTime date = convertDate(record.get("data_ora_proiezione")); // converte la data in formate LocalDateTime
         String titolo = record.get("titolo_film");
         Genres genere = Genres.valueOf(record.get("genere"));
         String regista = record.get("regista");

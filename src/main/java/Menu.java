@@ -299,9 +299,25 @@ public class Menu {
         }
         System.out.println("Inserire l'anno della proiezione");
         String anno = String.valueOf(this.numbcheckeranno());
+        System.out.println("Inserire l'ora di  inizio del film:");
+        String ore = String.valueOf(this.numbcheckore());
         return anno + "-" + valMesi + "-" + valGiorni;
     }
-
+    private int numbcheckore(){
+        String str = this.stringCheck();
+        try{
+            int value = Integer.parseInt(str);
+            if(value<=0){
+                System.out.println("Il numero inserito non può essere minore di 0");
+                return numbcheckore();
+            }else if(value>24){
+                System.out.println("Il giorno è composto da 24 ore, reinserire");
+                return numbcheckore();
+            } return value;
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private float priceCheck() {
         String str = this.stringCheck();
         try {

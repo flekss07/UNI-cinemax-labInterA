@@ -5,13 +5,13 @@ public class Proiezioni {
     private Genres genere; // da modifica in enum
     private String titolo;
     private String regista;
-    private LocalDate data;
+    private LocalDateTime data;
     private int durata;
     private int etaMin;
     private int anno;
     private float prezzo;
 
-    public Proiezioni(Genres genere, String titolo, String regista, LocalDate data, int durata, int etaMin, int anno, float prezzo){
+    public Proiezioni(Genres genere, String titolo, String regista, LocalDateTime data, int durata, int etaMin, int anno, float prezzo){
         this.genere = genere;
         this.titolo = titolo;
         this.regista = regista;
@@ -33,7 +33,7 @@ public class Proiezioni {
 
     public String getRegista() { return this.regista; }
 
-    public LocalDate getData() { return this.data; }
+    public LocalDateTime getData() { return this.data; }
 
     public int getDurata() { return this.durata; }
 
@@ -50,7 +50,7 @@ public class Proiezioni {
 
     public void setRegista(String regista){ this.regista = regista; }
 
-    public void setData(LocalDate data){ this.data = data; }
+    public void setData(LocalDateTime data){ this.data = data; }
 
     public void setDurata(int durata){ this.durata = durata; }
 
