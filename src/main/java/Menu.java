@@ -301,8 +301,26 @@ public class Menu {
         String anno = String.valueOf(this.numbcheckeranno());
         System.out.println("Inserire l'ora di  inizio del film:");
         String ore = String.valueOf(this.numbcheckore());
-        return anno + "-" + valMesi + "-" + valGiorni;
+        String minuti = String.valueOf(this.numbcheckmin());
+        return anno + "-" + valMesi + "-" + valGiorni+" "+ore+":"+minuti;
+
     }
+    private int numbcheckmin(){
+        String str = this.stringCheck();
+        try{
+            int value = Integer.parseInt(str);
+            if(value<=0){
+                System.out.println("Il numero inserito non può essere minore di 0");
+                return numbcheckmin();
+            }else if(value>60){
+                System.out.println("Ci sono 60 minuti in un ora");
+                return numbcheckmin();
+            } return value;
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private int numbcheckore(){
         String str = this.stringCheck();
         try{
