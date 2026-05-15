@@ -1,16 +1,24 @@
 import java.time.LocalDateTime;
 
 public class Prenotazione {
-    private User user;
-    private Proiezioni pro;
+    private String username;
+    private String titolo;
+    private LocalDateTime date;
+    private String id;
 
-    public Prenotazione(User user, Proiezioni pro) {
-        this.user = user;
-        this.pro = pro;
+    public Prenotazione(String username, String titolo, LocalDateTime date,String id) {
+        this.username = username;
+        this.titolo = titolo;
+        this.date = date;
+        this.id = id;
     }
 
-    public LocalDateTime getDAte(){ return this.pro.getData(); }
-    public String getTitolo(){ return this.pro.getTitolo(); }
-    public String getUsername(){ return this.user.getUsername(); }
+    public String username(){ return this.username; }
+    public String titolo(){ return this.titolo; }
+    public LocalDateTime getDate(){ return this.date; }
+    public String getId(){ return this.id; }
 
+    public void setTitolo(String titolo){this.titolo = titolo;}
+    public void setDate(LocalDateTime date){this.date = date;}
+    public void setUsername(String username){this.username = username;}
 }

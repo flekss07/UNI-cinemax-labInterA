@@ -35,6 +35,9 @@ FileHandler {
     /**
      * Lista contenente gli utenti caricati dal file CSV*/
     private LinkedList<User> userList;
+
+    private LinkedList<Prenotazione> prenList;
+
     /**
      * Percorso del file CSV*/
     private final Path path;// percorso file csv proiezioni
@@ -45,6 +48,7 @@ FileHandler {
     public FileHandler(String path) {
         this.proList = new LinkedList<>(); // inizializza linkedlist proiezioni
         this.userList = new LinkedList<>(); // inizializza linkedlist user
+        this.prenList = new LinkedList<>(); // inizializza linkedlist prenotazioni
         this.formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.path = Paths.get("data",path); // imposta percorso file corretto
@@ -265,6 +269,55 @@ FileHandler {
         );
     }
 
+    //metodo che carica i dati delle prenotazioni
+    private void loadPrenData() throws IOException {
+        BufferedReader br = Files.newBufferedReader(this.path); // crea un reader per il file csv che usa inputstream per processare il testo
+        CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(br); // crea un parser dedicato per il csv che usa gli header come nomi delle colonne
+        for (CSVRecord record : parser) // itera ogni elemento letto dal csvparser per estrarne i dati
+            this.createPrenObj(record); //crea oggetto proiezione e lo aggiunge alla linkedlist dedicata
+    }
+
+    private void createPrenObj(CSVRecord record){
+        String username = record.get("username");
+        String titolo = record.get("titolo");
+        String id = record.get("id");
+        LocalDateTime date = this.convertDate(record.get("data"));
+        return new Prenotazione()
+    }
+
+    //metodo che salva le prenotazioni su file
+    private void writeToPrenCsv() throws IOException {
+        Writer writer = new FileWriter(this.path.toFile()); // crea writer per scrivere su file
+        CSVPrinter printer = new CSVPrinter(writer, CSVFormat.DEFAULT); // crea csv printer per creare record da scrivere su file
+        this.newPrenHeader(printer);
+        for (Prenotazione p : this.prenList)
+            this.newPrenRecord(p,printer);
+        printer.flush(); // fa scrivere su file tutti i record stampati dal printer csv
+        printer.close(); // chiude printer stream
+        writer.close(); // chiude writer
+    }
+
+    //sotto metodo che crea gli header per il csv delle prenotazioni
+    private void newPrenHeader(CSVPrinter printer) throws IOException {
+        printer.printRecord(
+                "id",
+                "username",
+                "titolo",
+                "data"
+        );
+    }
+
+    //sotto metodo che crea un record per le prenotazioni
+    private void newPrenRecord(Prenotazione pre, CSVPrinter printer) throws IOException {
+        printer.printRecord(
+                pre.getId(),
+                pre.getTitolo(),
+                pre.getUsername(),
+                pre.getDate().format(this.formatter)
+        );
+    }
+
+
     //metodo che fa il get della linkedlist delle proiezioni
     /**
      * Metodo che restituisce la lista delle proiezioni, se lista vuota viene caricata dal CSV
@@ -311,7 +364,6 @@ FileHandler {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-         // richiama la funzione per verificare e restituire i dati
     }
 
     // metod oper salvare la linkedlist degli user
@@ -324,6 +376,19 @@ FileHandler {
         try {
             this.writeToUserCsv(); // riscrive file proiezioni csv
         }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    // metodo che restituisce la lista delle prenotazioni caricate da file
+    public LinkedList<Prenotazione>getPrenList(){
+        if(!this.userList.isEmpty()) // se la linkedlist è già caricata la restituisce
+            return this.prenList;
+        try {
+            this.loadPrenData();
+            return this.prenList;// se linkedlist è vuota la carica da csv
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
