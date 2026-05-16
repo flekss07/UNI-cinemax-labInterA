@@ -40,4 +40,19 @@ public class PrenotazioniHandler {
         }
         return false; // conferma di non aver trovato la prenotazione da rimuovere
     }
+
+    //metodo che modifica una prenotazione
+    public boolean modificaPrenotazione(String id, LocalDateTime date){
+        if(!date.isAfter(LocalDateTime.now)) return false; // guard colse che fa uscire dal metodo se la data inserita è precedente a quella attuale
+        Iterator<Prenotazione> prenIt = this.prenList.iterator();// crea un iteratore della lista per poterla modificare mentre viene iterata (non si puo fare con foreach)
+        while (prenIt.hasNext()){// continua a iterare la lista fino a che non arriva alla fine o non viene trovato un oggetto prenotazione
+            Prenotazione p = prenIt.next(); // prende oggetto successivo per check
+            if(p.getId().equals(id) && p.getDate().isAfter(LocalDateTime.now())) {
+                p.setDate(date); // modifica la data della prenotazione
+                this.fh.savePrenList(this.prenList); // salva cambiamento
+                return true; // conferma modifica
+            }
+        }
+        return false; // conferma di non aver trovato la prenotazione da modificare o che la data di quella trovata è precedente a quella attuale
+    }
 }
