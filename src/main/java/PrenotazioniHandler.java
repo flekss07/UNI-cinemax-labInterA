@@ -18,5 +18,11 @@ public class PrenotazioniHandler {
         this.fh.savePrenList(this.prenList);
     }
 
-
+    //metodo di ricerca delle prenotazioni di uno user che ritorna una linkedlist con le prenotazioni trovate
+    public LinkedList<Prenotazione> visualizzaPrenotazioni(String username){
+        LinkedList<Prenotazione> foundList = new LinkedList<>(); // lista prenotazioni trovate
+        for(Prenotazione p: this.prenList)
+            if(p.getUsername().equals(username)) foundList.add(p);
+        return foundList; // ritorna una lista vuota se non trova prenotazioni associate
+    }
 }
