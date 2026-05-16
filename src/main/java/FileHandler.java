@@ -282,7 +282,8 @@ FileHandler {
         String titolo = record.get("titolo");
         String id = record.get("id");
         LocalDateTime date = this.convertDate(record.get("data"));
-        return new Prenotazione()
+        Prenotazione p = new Prenotazione(username,titolo,date,id);
+        this.prenList.add(p);
     }
 
     //metodo che salva le prenotazioni su file
@@ -389,6 +390,16 @@ FileHandler {
             return this.prenList;// se linkedlist è vuota la carica da csv
         }
         catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //metodo che salva la lista di prenotazioni
+    public void savePrenList(LinkedList<Prenotazione> prenList){
+        this.prenList = prenList; // aggiorna lista salvata in cache
+        try {
+            this.writeToPrenCsv(); // riscrive file proiezioni csv
+        }catch(IOException e){
             throw new RuntimeException(e);
         }
     }

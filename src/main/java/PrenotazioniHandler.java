@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -6,13 +8,14 @@ public class PrenotazioniHandler {
     private FileHandler fh;
     public PrenotazioniHandler(){
         this.fh = new FileHandler("prenotazioni.csv");
-        this.pre = this.fh.getPrenList();
+        this.prenList = this.fh.getPrenList();
     }
 
     //metodo che crea una nuova prenotazione
-    public void createBooking(User u, Proiezioni pro, String id){
-        Prenotazione p = new Prenotazione(u,pro,id);
+    public void createBooking(String username, String titolo, LocalDateTime date, String id){
+        Prenotazione p = new Prenotazione(username,titolo, date,id);
         this.prenList.add(p);
+        this.fh.savePrenList(this.prenList);
     }
 
 

@@ -13,8 +13,8 @@ public class Prenotazione {
         this.id = id;
     }
 
-    public String username(){ return this.username; }
-    public String titolo(){ return this.titolo; }
+    public String getUsername(){ return this.username; }
+    public String getTitolo(){ return this.titolo; }
     public LocalDateTime getDate(){ return this.date; }
     public String getId(){ return this.id; }
 
